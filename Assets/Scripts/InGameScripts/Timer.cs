@@ -46,11 +46,9 @@ public class Timer : MonoBehaviour
         if (TimerIsOn)
         {
             float pastedTime =minutes * 60 + seconds;
-         float TypeSpeed = (charCount / pastedTime) * 60;
+            float TypeSpeed = (charCount / pastedTime) * 60;
             TypeSpeed =(float) Math.Round(TypeSpeed, 2);
-        TypeSpeedText.text = $" {TypeSpeed} зн/м";
-
+            TypeSpeedText.text = $" {TypeSpeed} зн/м";
         }
     }
-
 }

@@ -15,12 +15,11 @@ public class SettingsWriter : MonoBehaviour
     private bool IsChallengeMode;
     [SerializeField] GameObject PanelInputField;
     [SerializeField] Toggle ChallengeModeToggle;
+    int MaxSymbolsInText = 2000;
     private void Start()
     {
         if (PanelInputField != null)
         {
-
-            //bool isChallenge = Convert.ToBoolean(PlayerPrefs.GetInt(ChallengeModePrefs));
             PanelInputField.SetActive(TypeSpeedSettings.IsChallengeMode);
             ChallengeModeToggle.isOn = TypeSpeedSettings.IsChallengeMode;
             ClientTypeSpeed.text = TypeSpeedSettings.TypeSpeed.ToString();
@@ -39,8 +38,6 @@ public class SettingsWriter : MonoBehaviour
     {
         IsChallengeMode = !IsChallengeMode;
         TypeSpeedSettings.IsChallengeMode = IsChallengeMode;
-        int IsChallengeModeAsInt = Convert.ToInt32(IsChallengeMode);
-        Debug.Log("Current Saved ChallengeModePrefs:" + IsChallengeModeAsInt);
     }
     public void SaveText()
     {
@@ -56,7 +53,6 @@ public class SettingsWriter : MonoBehaviour
         if (ClientTextFragment != null) 
         {
         ClientTextFragment.FragmentOfText1 = ClientText.text;
-        Debug.Log("сохраненный текст:" + ClientTextFragment.FragmentOfText1);
         }
     }
     public void SaveTypeSpeed()
@@ -66,27 +62,15 @@ public class SettingsWriter : MonoBehaviour
         int.TryParse(TypeSpeedString, out TypeSpeed);
         if (TypeSpeed >= 0)
         TypeSpeedSettings.TypeSpeed = TypeSpeed;
-        Debug.Log("скорость платформы:" + TypeSpeed);
     }
-    public void OtladochnayaKnopka()
+    public void CutTextToMaxAvailable()
     {
-        if (ClientText.text.Length > 2000)
-            ClientText.text = ClientText.text[..2000];
-        //  ClientTextFragment.FragmentOfText1 = ClientText.text[..2000];
-    }
-    public void Otladka()
-    {
-       
-        //if (ClientText.text.Contains("\n"))
-        //{
-        //    ClientText.text = ClientText.text.Replace("\n", " ");
-        //}
+        if (ClientText.text.Length > MaxSymbolsInText)
+            ClientText.text = ClientText.text[..MaxSymbolsInText];
     }
     public void Zamena()
     {
         ClientText.text = ClientText.text.Replace("S", " ");
-        Debug.Log("текст после отладки:" + ClientText.text);
-        Debug.Log(ClientText.text[^1].GetTypeCode());
         string NewText = String.Empty;
         int razrivIndex = 0;
         for (int i = 0; i < ClientText.text.Length; i++)
@@ -98,8 +82,7 @@ public class SettingsWriter : MonoBehaviour
             }
         }
         NewText += ClientText.text.Substring(razrivIndex);
-        Debug.Log(NewText);
         ClientText.text = NewText;
-        OtladochnayaKnopka();
+        CutTextToMaxAvailable();
     }
 }

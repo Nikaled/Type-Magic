@@ -11,8 +11,6 @@ public class GUIManager : MonoBehaviour
     [SerializeField] GameObject PauseMenu;
     [SerializeField] Creator creator;
     [SerializeField] TextMeshProUGUI LevelText;
-
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

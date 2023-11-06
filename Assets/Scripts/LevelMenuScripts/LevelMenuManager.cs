@@ -18,10 +18,9 @@ public class LevelMenuManager : MonoBehaviour
     [SerializeField] private GameManager _gameManager;
     private void Start()
     {
-                int NumberToUnlockButtons = _gameManager.CheckMaxLevelIdAndSave();
-                UnlockButtons(NumberToUnlockButtons);
-                SelectUILevelGroup(NumberToUnlockButtons);
-   
+      int NumberToUnlockButtons = _gameManager.CheckMaxLevelIdAndSave();
+      UnlockButtons(NumberToUnlockButtons);
+      SelectUILevelGroup(NumberToUnlockButtons); 
     }
     private void Update()
     {
@@ -34,7 +33,6 @@ public class LevelMenuManager : MonoBehaviour
         {
             UnlockButtons(19);
             SelectUILevelGroup(19);
-
         }
     }
     public void UnlockButtons(int id)
@@ -43,7 +41,6 @@ public class LevelMenuManager : MonoBehaviour
         {
             DifficultyUI.SetActive(true);   
         }
-        Debug.Log("јйди:"+id);
         for (int i = 0; i <= id; i++)
         {
             LevelButtons[i].GetComponent<Button>().enabled = true;
@@ -54,25 +51,22 @@ public class LevelMenuManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("WinGame", 1);
             WinGamePanel.SetActive(true);
-            Debug.Log("игра пройдена!");
             return;
         }
         for (int i = id+2; i < LevelButtons.Count; i++)
         {
             LevelButtons[i].GetComponent<Button>().enabled = false;
             LevelButtons[i].GetComponent<Image>().color = Color.black; 
-
         }
     }
     public void SelectUILevelGroup(int id)
     {
             if(id >= _levelsCountInGroup - 1)
-        {
+            {
             LevelGroup1.SetActive(false);
             LevelGroup2.SetActive(true);
-            ToPreviousGroupButton.SetActive(true);
-            
-        }
+            ToPreviousGroupButton.SetActive(true);           
+            }
         else
         {
             LevelGroup1.SetActive(true);

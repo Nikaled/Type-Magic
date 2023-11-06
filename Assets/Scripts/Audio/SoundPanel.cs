@@ -35,15 +35,12 @@ public class SoundPanel : MonoBehaviour
     }
     public void LoadVolumeSettings()
     {
-        Debug.Log("LoadVolumeSettings");
         LoadVolumeSettingsFromPrefs();
         SetVolumeAndSlider(_startSoundVolume, ref _volumeSoundBeforeMute, SoundSlider, "Master");
         SetVolumeAndSlider(_startMusicVolume, ref _volumeMusicBeforeMute, MusicSlider, "Music");
 
         SoundToggle.isOn = IsSoundOn;
         MusicToggle.isOn = IsMusicOn;
-        //SetToggle(IsSoundOn, SoundToggle, ref _volumeSoundBeforeMute, "Master");
-        //SetToggle(IsMusicOn, MusicToggle, ref _volumeMusicBeforeMute, "Music");
     }
     private void LoadVolumeSettingsFromPrefs()
     {
@@ -90,7 +87,6 @@ public class SoundPanel : MonoBehaviour
         Toggle(enabled, "Master", ref _volumeSoundBeforeMute);
 
         PlayerPrefs.SetInt(ToggleSoundPrefsName, Convert.ToInt32(enabled));
-        Debug.Log(_volumeSoundBeforeMute);
         PlayerPrefs.SetFloat(SoundPrefsName, _volumeSoundBeforeMute);
 
     }
@@ -99,7 +95,6 @@ public class SoundPanel : MonoBehaviour
         Toggle(enabled, "Music", ref _volumeMusicBeforeMute);
 
         PlayerPrefs.SetInt(ToggleMusicPrefsName, Convert.ToInt32(enabled));
-        Debug.Log(_volumeMusicBeforeMute);
         PlayerPrefs.SetFloat(MusicPrefsName, _volumeMusicBeforeMute);
     }
     public void ChangeSlider(ref float volume, string MixerName, Slider slider, Toggle toggle)
@@ -117,7 +112,6 @@ public class SoundPanel : MonoBehaviour
         ChangeSlider(ref volume, "Master", SoundSlider, SoundToggle);
         _volumeSoundBeforeMute = volume;
         PlayerPrefs.SetFloat(SoundPrefsName, volume);
-        Debug.Log(volume);
     }
     public void ChangeMusicVolume(float volume)
     {

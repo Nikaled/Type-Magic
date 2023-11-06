@@ -11,17 +11,19 @@ public class LearningController : Controller
     [SerializeField] private GameObject _firstSpacePanel;
     [SerializeField] private GameObject _firstCapitalLetterPanel;
     [SerializeField] private GameObject _showTextPanel;
-   public override void BlockPressed()
+    private void Start()
+    {
+        StopGame(); // Игра будет начата после нажатия кнопки в меню обучения
+    }
+    public override void BlockPressed()
     {
         base.BlockPressed();
         if (CurrentIndex == 1)
         {
-            Debug.Log("CurrentIndex 1");
             _firstWordPanel.SetActive(false);
         }
         if (CurrentIndex == _firstSpaceIndex)
         {
-            Debug.Log("CurrentIndex 7");
             _firstSpacePanel.SetActive(true);
         }
         if(CurrentIndex == _firstSpaceIndex + 1)
@@ -30,7 +32,6 @@ public class LearningController : Controller
         }
         if(CurrentIndex == _firstCapitalLetterIndex)
         {
-            Debug.Log("CurrentIndex 8");
             _firstCapitalLetterPanel.SetActive(true);
         }
         if(CurrentIndex == _firstCapitalLetterIndex + 1)
@@ -42,9 +43,5 @@ public class LearningController : Controller
     {
         base.OnCompleted();
         _showTextPanel.SetActive(true);
-    }
-    private void Start()
-    {
-        StopGame(); // Игра будет начата после нажатия кнопки в меню обучения
     }
 }

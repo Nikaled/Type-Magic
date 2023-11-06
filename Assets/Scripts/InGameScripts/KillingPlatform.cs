@@ -13,7 +13,6 @@ public class KillingPlatform : MonoBehaviour
     public bool IsPlatformActiveOnThisLevel;
     public static Action PlatformKills;
     [SerializeField] private float _firstRowTimeModifier;
-
     private void OnEnable()
     {
         Controller.FirstBlockActivated += StartMovingPlatform;
@@ -23,8 +22,7 @@ public class KillingPlatform : MonoBehaviour
         Controller.FirstBlockActivated -= StartMovingPlatform;
     }
     public void StartMovingPlatform()
-    {
-        
+    {     
         StartCoroutine(ActivatePlatform());
     }
     public IEnumerator ActivatePlatform()
@@ -33,20 +31,15 @@ public class KillingPlatform : MonoBehaviour
         {
             float MoveTimeToFirstRow = _moveTime * _firstRowTimeModifier;
             Vector3 MoveDistanceToFirstRow = _moveDistance *0.2f;
+
             StartCoroutine(FirstRowActivatePlatform(MoveTimeToFirstRow, MoveDistanceToFirstRow));
             yield return new WaitForSeconds(MoveTimeToFirstRow);
-            Debug.Log("Первое ожидание завершено");
-
-            int i =0;
-        while (true) {
+        while (true) 
+            {
             MovePlatform(_moveTime, _moveDistance);
-            Debug.Log("Platform Moving times:" + i);
-            i++;
             yield return new WaitForSeconds(_moveTime);
-        }
-        }
-
-       
+            }
+        }  
     }
     private void MovePlatform(float moveTime, Vector3 moveDistance )
     {
@@ -58,7 +51,6 @@ public class KillingPlatform : MonoBehaviour
         if (IsPlatformActiveOnThisLevel)
         {
                 MovePlatform(moveTime, MoveDistance);
-                Debug.Log("FirstRowActivatePlatform");
                 yield return new WaitForSeconds(moveTime);
             }
         }
@@ -73,7 +65,6 @@ public class KillingPlatform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-        Debug.Log("ПРОИГРАНО");
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
             PlatformKills.Invoke();
         }
@@ -93,9 +84,6 @@ public class KillingPlatform : MonoBehaviour
             int TextLength = Creator.instance.LevelText.Length;
             int RowsAtTheLevel = Creator.instance.CountOfRows;
             _averageCountSymbolsInARow = TextLength / RowsAtTheLevel;
-            Debug.Log("_averageCountSymbolsInARow:" + _averageCountSymbolsInARow);
-
-
             float charbysecond = speed / 60;
             float  MovementTime = _averageCountSymbolsInARow / charbysecond;
             _moveTime = MovementTime;

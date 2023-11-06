@@ -30,11 +30,8 @@ public class Block : MonoBehaviour
         render.color = Color.green;
         isDone = true;
         BlocksDoneInTheRow++;
-        // 0.3 do 1.7 lerp 0.3 17 blocksdone; blocksdone = blocksdone / 17;
-        //_keySound.pitch = UnityEngine.Random.Range(0.3f, 1.7f);
         _keySound.pitch = Mathf.Lerp(0.85f, 1.15f, BlocksDoneInTheRow / Creator.instance.RowLenght);
         _keySound.panStereo = Mathf.Lerp(-1f, 1f, BlocksDoneInTheRow / Creator.instance.RowLenght);
-
         _keySound.PlayOneShot(_keySound.clip);
         Controller.instance.BlockPressed();
         if (IsLastBlockInRow)

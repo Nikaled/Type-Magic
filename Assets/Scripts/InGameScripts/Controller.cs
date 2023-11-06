@@ -45,7 +45,7 @@ public class Controller : MonoBehaviour
     {
         StopGame();
         OnCompletedAction.Invoke();
-        GameManager.instance.progress.CurrentLevelName = SceneManager.GetActiveScene().name; // СДЕЛАТЬ: перенести в GameManager и вызвать через подписку на OnCompletedAction
+        GameManager.instance.progress.CurrentLevelName = SceneManager.GetActiveScene().name;
     }
     public static void StopGame()
     {
@@ -80,7 +80,6 @@ public class Controller : MonoBehaviour
                 MoveCameraDown();
             if (CurrentIndex >= WrittenBlocks.Count) 
             {
-                Debug.Log("победа!");
                 OnCompleted();
                 return;
             }
@@ -102,7 +101,6 @@ public class Controller : MonoBehaviour
         WrittenBlocks = blocks;
         for (int i = 0; i < WrittenBlocks.Count; i++)
         {
-
             WrittenBlocks[i].enabled = false;
         }
         WrittenBlocks[0].enabled = true;
@@ -111,9 +109,7 @@ public class Controller : MonoBehaviour
         float blockHeight = currentBlock.render.bounds.size.y;
         float blockWidth = currentBlock.render.bounds.size.x;
         character.transform.position = currentBlock.transform.position + new Vector3(-blockWidth, blockHeight*1.7f);
-        //BlockAndCharacterHeight = new Vector3(0, currentBlock.render.bounds.size.y) + new Vector3(0, character.GetComponent<SpriteRenderer>().size.y);
         BlockAndCharacterHeight =new Vector3(0, blockHeight * 1.75f);
-        Debug.Log(BlockAndCharacterHeight);
         return BlockAndCharacterHeight;
     }
     private void CurrentBlockChange(Block block)

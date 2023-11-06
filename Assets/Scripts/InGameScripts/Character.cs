@@ -17,15 +17,11 @@ public class Character : MonoBehaviour
             animator.SetBool("IsMoving", false);
         }
     }
-
     public  IEnumerator Move2(Vector3 blockPosition)
     {
         lastBlockCoordinate = blockPosition;
         animator.SetBool("IsMoving", true);
         MovingCoroutines.Add(MoveToCurrentBlock(blockPosition));
-        //yield return new WaitForSeconds(_timeToPassBlock * MovingCoroutines.Count);
-        //yield return StartCoroutine(MoveToCurrentBlock(blockPosition));
-        //yield return StartCoroutine(MovingCoroutines[0]);
         yield return StartCoroutine(MoveToCurrentBlock(blockPosition));
         MovingCoroutines.RemoveAt(0);
     }
